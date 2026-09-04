@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Unbounded } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
@@ -58,8 +56,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

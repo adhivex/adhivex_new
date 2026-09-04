@@ -11,12 +11,7 @@
  * values. Swap these for real values before launch.
  */
 
-// Falls back to Vercel's auto-populated preview URL (no scheme) so preview
-// deployments get correct metadata/OG/sitemap URLs instead of the production
-// domain, then to the production domain for local dev and other hosts.
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://adhivex.com");
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://adhivex.com";
 
 export const siteConfig = {
   name: "ADHIVEX",

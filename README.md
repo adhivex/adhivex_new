@@ -24,10 +24,8 @@ Copy `.env.example` to `.env.local` and fill in:
   and submits, but returns a clear "not configured" error instead of
   silently failing.
 - `NEXT_PUBLIC_SITE_URL` — used in metadata, the sitemap, and OG images.
-  On Vercel, if this is unset it falls back to the deployment's own
-  `VERCEL_URL` (so preview deployments get correct URLs automatically),
-  then to `https://adhivex.com` as a last resort. Set it explicitly to your
-  real domain for production.
+  Set it to your production domain before launch; it falls back to
+  `https://adhivex.com` if unset.
 
 ## Content
 
@@ -57,21 +55,17 @@ comes from.
 
 ## Deployment
 
-Deploy on [Vercel](https://vercel.com/new) (zero config for Next.js):
+Build and run like any Node app:
 
-1. Push this repo to GitHub/GitLab/Bitbucket, then import it in Vercel — or
-   run `npx vercel` from this directory to deploy straight from your machine.
-2. In the Vercel project's Environment Variables settings, add
-   `RESEND_API_KEY` (and `NEXT_PUBLIC_SITE_URL` once you have a production
-   domain — see above).
-3. Vercel Analytics and Speed Insights are already wired into
-   [`layout.tsx`](src/app/layout.tsx); no extra setup needed beyond enabling
-   them for the project in the Vercel dashboard if you want the data to
-   populate (they no-op harmlessly if left disabled).
+```bash
+npm run build
+npm run start
+```
 
-Any other Node host works too (`npm run build && npm run start`), as long as
-it supports the Next.js server runtime — this app uses a server action for
-the contact form, so it can't be exported as static HTML.
+The host needs to support the Next.js server runtime (not static hosting) —
+the contact form uses a server action, so this can't be exported as static
+HTML. Set `RESEND_API_KEY` and `NEXT_PUBLIC_SITE_URL` as environment
+variables wherever it's deployed.
 
 ## Notes
 
