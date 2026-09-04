@@ -53,19 +53,44 @@ comes from.
 - `src/store/useUIStore.ts` — Zustand store for nav + work-filter UI state
 - `src/lib/content.ts` — typed content layer (see above)
 
-## Deployment
+## Deployment (Hostinger)
 
-Build and run like any Node app:
+Deploy pipeline: **GitHub → Hostinger Node.js app (hPanel Git deploy) → live
+site.** The host needs to run a persistent Node process (not static hosting)
+— the contact form uses a server action, so this can't be exported as static
+HTML.
+
+Hostinger's Node.js hosting runs whatever file you set as the "Application
+startup file" directly with `node`, not via an npm script — plain
+`next start` doesn't work there. [`server.js`](server.js) exists for exactly
+this: it wraps Next.js's programmatic server API and listens on the port
+Hostinger assigns via `process.env.PORT`.
+
+**One-time setup in hPanel:**
+
+1. Under the domain → **Advanced → Node.js**, create an application:
+   - Node.js version: 20.x or newer (matches `engines.node` in `package.json`)
+   - Application root: the folder this repo is cloned into
+   - **Application startup file: `server.js`**
+2. In the same Node.js app's **Git** tab, connect this repository
+   (`adhivex/adhivex_new`) and branch `main`.
+3. Add environment variables on the Node.js app page: `RESEND_API_KEY` and
+   `NEXT_PUBLIC_SITE_URL` (your real domain).
+
+**On every deploy** (after hPanel pulls the latest commit), the app still
+needs dependencies installed and a fresh build — hPanel's Git puller only
+syncs files, it doesn't run `npm run build`. Check hPanel's Node.js app page
+for a post-deploy/deployment-script field to automate this; if there isn't
+one, run it manually over SSH after each pull:
 
 ```bash
+npm install
 npm run build
-npm run start
 ```
 
-The host needs to support the Next.js server runtime (not static hosting) —
-the contact form uses a server action, so this can't be exported as static
-HTML. Set `RESEND_API_KEY` and `NEXT_PUBLIC_SITE_URL` as environment
-variables wherever it's deployed.
+Then restart the app from hPanel's Node.js app page (or, if it uses
+Passenger under the hood like other cPanel-style Node hosting, `touch
+tmp/restart.txt` in the app root has the same effect).
 
 ## Notes
 
