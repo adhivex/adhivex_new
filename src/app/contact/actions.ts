@@ -47,7 +47,7 @@ export async function submitContactForm(
   try {
     const resend = new Resend(apiKey);
     await resend.emails.send({
-      from: `${siteConfig.name} <onboarding@resend.dev>`,
+      from: `${siteConfig.name} <hello@adhivex.com>`,
       to: siteConfig.email,
       replyTo: email,
       subject: `New project inquiry from ${name}`,
