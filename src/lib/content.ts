@@ -6,9 +6,9 @@
  * CMS-backed fetch (e.g. Sanity) later is a drop-in change, since pages only
  * ever import the shaped data below, never raw strings.
  *
- * PLACEHOLDER DATA: case-study specifics (client names, metrics,
- * testimonials) are marked `isPlaceholder: true` and use illustrative
- * values. Swap these for real values before launch.
+ * Case studies (`caseStudies` below) are real, shipped client projects.
+ * Any future placeholder entry should be marked `isPlaceholder: true`
+ * so it's easy to find and swap out before it goes live.
  */
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://adhivex.com";
@@ -159,49 +159,35 @@ export interface CaseStudy {
   summary: string;
   metrics: { value: string; label: string }[];
   year: string;
-  isPlaceholder: true;
+  url?: string;
+  isPlaceholder?: boolean;
 }
 
-// TODO(placeholder): replace with real client names, results, and copy
-// once case studies are available — these are structural placeholders.
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "placeholder-fintech-platform",
-    client: "Placeholder Fintech Co.",
+    slug: "sai-jagannath-engineering-construction",
+    client: "Sai Jagannath Engineering & Construction",
     service: "web",
     summary:
-      "Redesigned and rebuilt a customer-facing platform on Next.js, cutting load times and unifying the design system.",
+      "Designed and built a corporate site for SJEC, an industrial electrical & instrumentation contractor — presenting their HT/LT electrical, instrumentation, and automation capabilities alongside a documented project portfolio across cement, steel, and DRI plants in Odisha and Jharkhand.",
     metrics: [
-      { value: "—", label: "load time improvement" },
-      { value: "—", label: "conversion lift" },
+      { value: "7", label: "portfolio projects documented" },
+      { value: "6", label: "industrial sectors covered" },
     ],
-    year: "2025",
-    isPlaceholder: true,
+    year: "2026",
+    url: "https://sjec.in/",
   },
   {
-    slug: "placeholder-support-automation",
-    client: "Placeholder Ops Team",
-    service: "automation",
+    slug: "routray-naturals",
+    client: "Routray Naturals",
+    service: "web",
     summary:
-      "Built an AI triage agent that classifies and routes inbound support requests before a human ever sees them.",
+      "Designed and built a direct-to-consumer e-commerce store for Routray Naturals, a premium dry fruits and whole spices brand — covering the full shop experience from an origin-tagged product catalog to cart and checkout.",
     metrics: [
-      { value: "—", label: "tickets auto-resolved" },
-      { value: "—", label: "response time reduction" },
+      { value: "4", label: "shop categories built" },
+      { value: "7+", label: "sourcing origins featured" },
     ],
-    year: "2025",
-    isPlaceholder: true,
-  },
-  {
-    slug: "placeholder-data-warehouse",
-    client: "Placeholder Retail Group",
-    service: "data",
-    summary:
-      "Migrated fragmented spreadsheet reporting into a governed warehouse with a live analytics dashboard.",
-    metrics: [
-      { value: "—", label: "reports automated" },
-      { value: "—", label: "pipeline reliability" },
-    ],
-    year: "2024",
-    isPlaceholder: true,
+    year: "2026",
+    url: "https://routraynaturals.in/",
   },
 ];

@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import { SpotlightCard } from "@/components/motion/SpotlightCard";
 import { services, type CaseStudy } from "@/lib/content";
 
@@ -12,7 +13,21 @@ export function WorkCard({ caseStudy }: { caseStudy: CaseStudy }) {
           <span>{caseStudy.year}</span>
         </div>
 
-        <h3 className="mt-6 font-display text-xl font-medium">{caseStudy.client}</h3>
+        <h3 className="mt-6 font-display text-xl font-medium">
+          {caseStudy.url ? (
+            <a
+              href={caseStudy.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-accent-light"
+            >
+              {caseStudy.client}
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          ) : (
+            caseStudy.client
+          )}
+        </h3>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-foreground-muted">
           {caseStudy.summary}
         </p>
